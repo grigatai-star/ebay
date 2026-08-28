@@ -1,0 +1,304 @@
+# Ниши для сканирования ebay.de.
+#
+# Поля:
+#   key        — идентификатор ниши (используется в отчётах и БД)
+#   label      — человеческое название
+#   queries    — поисковые фразы (немецкие! на ebay.de ищут по-немецки)
+#   season     — месяцы, когда ниша на подъёме (1-12). Пусто = круглый год
+#   tags       — метки: bulky (крупногабарит, только самовывоз/локально),
+#                vinted (хорошо уходит на Vinted), kleinanzeigen, hochwertig
+#   price_min/price_max — переопределяют диапазон по умолчанию
+#   buy_ratio  — какую долю от медианной цены eBay имеет смысл платить
+#                в ломбарде/секонде, чтобы остался запас (0.40 = 40%)
+#   note       — заметка по нише
+#
+# Логика подбора: ходовое б/у в 80-500 EUR, где покупатель не боится
+# мошенничества. Смартфоны, GPS-часы, консоли, дроны, люкс — вынесены
+# в config/exclude.yaml и режутся автоматически.
+
+defaults:
+  price_min: 80
+  price_max: 500
+  pages: 1
+  buy_ratio: 0.40
+  exclude_words: [defekt, bastler, ersatzteil, konvolut, replica]
+
+seeds:
+  - key: profi_akkuwerkzeug
+    label: "Профинструмент аккумуляторный (Bosch Pro / Makita / Metabo)"
+    queries:
+      - "Bosch Professional Akkuschrauber"
+      - "Makita Akku Set 18V"
+      - "Metabo Akku Bohrhammer"
+      - "Bosch GBH Bohrhammer"
+    season: []
+    tags: [kleinanzeigen, hochwertig]
+    buy_ratio: 0.40
+    note: "Самая ликвидная ниша в Германии. Покупают ремесленники за нал, без торга и без подозрений."
+
+  - key: handwerkzeug_marken
+    label: "Ручной инструмент (Wera / Knipex / Hazet / Stahlwille)"
+    queries:
+      - "Hazet Werkzeugkoffer"
+      - "Knipex Zangenset"
+      - "Stahlwille Steckschlüsselsatz"
+      - "Wera Werkzeug Set"
+    season: []
+    tags: [kleinanzeigen, hochwertig]
+    buy_ratio: 0.35
+    note: "Немецкие бренды, не подделывают массово, вечный спрос, лёгкая посылка."
+
+  - key: kettensaege_garten
+    label: "Бензопилы и садовая техника (Stihl / Husqvarna / Kärcher)"
+    queries:
+      - "Stihl Motorsäge MS"
+      - "Husqvarna Motorsäge"
+      - "Kärcher Hochdruckreiniger"
+      - "Stihl Laubbläser"
+    season: [3, 4, 5, 9, 10, 11]
+    tags: [kleinanzeigen]
+    buy_ratio: 0.40
+    note: "Осень — заготовка дров и уборка листвы. Пик спроса сентябрь-ноябрь."
+
+  - key: auto_winter
+    label: "Авто, зимний сезон (Dachbox / Winterräder / Standheizung)"
+    queries:
+      - "Thule Dachbox"
+      - "Winterreifen Alufelgen 17 Zoll"
+      - "Webasto Standheizung"
+      - "Dachträger Thule"
+    season: [9, 10, 11, 12]
+    tags: [bulky, kleinanzeigen]
+    buy_ratio: 0.40
+    note: "Строго сезонная ниша: сентябрь-ноябрь. Крупногабарит — продавать локально."
+
+  - key: kaffeevollautomat
+    label: "Кофемашины (Jura / DeLonghi / Siemens / Sage)"
+    queries:
+      - "Jura Kaffeevollautomat"
+      - "DeLonghi Kaffeevollautomat"
+      - "Siemens EQ Kaffeevollautomat"
+      - "Sage Espressomaschine"
+    season: [9, 10, 11, 12, 1, 2]
+    tags: [kleinanzeigen]
+    buy_ratio: 0.35
+    note: "Осень-зима — пик. Обязательно проверять помпу и заварной блок, иначе возвраты."
+
+  - key: kuechenmaschine
+    label: "Кухонная техника (KitchenAid / Kenwood / Miele / Vorwerk Kobold)"
+    queries:
+      - "KitchenAid Küchenmaschine"
+      - "Kenwood Chef"
+      - "Miele Staubsauger"
+      - "Vorwerk Kobold VK"
+    season: [10, 11, 12]
+    tags: [kleinanzeigen]
+    buy_ratio: 0.40
+    note: "Предновогодний спрос. Kobold и KitchenAid держат цену годами."
+
+  - key: hifi_vintage
+    label: "Hi-Fi и винтажное аудио (Technics / Marantz / Sennheiser / Sonos)"
+    queries:
+      - "Technics Plattenspieler"
+      - "Marantz Verstärker"
+      - "Sennheiser HD 600"
+      - "Sonos Play 5"
+      - "Canton Lautsprecher"
+    season: [10, 11, 12, 1]
+    tags: [kleinanzeigen, hochwertig]
+    buy_ratio: 0.40
+    note: "Винтаж 70-80-х уходит мгновенно, аудиофилы платят без торга."
+
+  - key: musikinstrumente
+    label: "Музыкальные инструменты (Fender / Boss / Shure / Focusrite)"
+    queries:
+      - "Squier Stratocaster"
+      - "Epiphone Les Paul"
+      - "Boss Effektgerät"
+      - "Shure SM58"
+      - "Yamaha Keyboard"
+    season: [9, 10, 11, 12]
+    tags: [kleinanzeigen]
+    buy_ratio: 0.40
+    note: "Сентябрь — начало учебного года и музшкол, декабрь — подарки."
+
+  - key: foto_objektive
+    label: "Фотооптика и плёнка (Sigma / Tamron / Canon / аналог)"
+    queries:
+      - "Sigma Objektiv Canon"
+      - "Tamron Objektiv Nikon"
+      - "Canon AE-1"
+      - "Nikon FM2"
+      - "Olympus OM Objektiv"
+    season: []
+    tags: [vinted, kleinanzeigen, hochwertig]
+    buy_ratio: 0.40
+    note: "Плёночные камеры — тренд у 18-30, отлично уходят и на Vinted. Объективы легко слать почтой."
+
+  - key: ferngläser_optik
+    label: "Бинокли и оптика (Zeiss / Swarovski / Leica / Steiner)"
+    queries:
+      - "Zeiss Fernglas"
+      - "Swarovski Fernglas"
+      - "Leica Fernglas"
+      - "Steiner Fernglas"
+    season: [9, 10, 11, 12, 1]
+    tags: [hochwertig, kleinanzeigen]
+    buy_ratio: 0.35
+    note: "Охотничий сезон. Дорого, компактно, почти нет подделок, аудитория 45+ платит спокойно."
+
+  - key: wintersport
+    label: "Зимний спорт (лыжи / сноуборд / ботинки / шлемы)"
+    queries:
+      - "Ski Set Bindung"
+      - "Skischuhe Größe"
+      - "Snowboard Burton"
+      - "Tourenski"
+    season: [10, 11, 12, 1, 2]
+    tags: [bulky, kleinanzeigen]
+    buy_ratio: 0.35
+    note: "Окно продаж октябрь-январь, дальше цена падает вдвое. Не затариваться в феврале."
+
+  - key: outdoor_bekleidung
+    label: "Outdoor-одежда и обувь (Fjällräven / Arc'teryx / Meindl / Deuter)"
+    queries:
+      - "Fjällräven Jacke"
+      - "Arcteryx Jacke"
+      - "Meindl Wanderschuhe"
+      - "Deuter Rucksack"
+      - "Mammut Jacke"
+    season: [9, 10, 11, 12]
+    tags: [vinted, kleinanzeigen]
+    buy_ratio: 0.30
+    note: "Главная ниша под Vinted. Осенью спрос на куртки взлетает. Размер в заголовке обязателен."
+
+  - key: kinder_ausstattung
+    label: "Детское (Bugaboo / Stokke / Cybex / Woom)"
+    queries:
+      - "Stokke Tripp Trapp"
+      - "Bugaboo Kinderwagen"
+      - "Cybex Kindersitz"
+      - "Woom Kinderfahrrad"
+    season: []
+    tags: [kleinanzeigen]
+    buy_ratio: 0.40
+    note: "Самая быстрая ниша на Kleinanzeigen: родители забирают в тот же день."
+
+  - key: heimfitness
+    label: "Домашний фитнес (гантели / диски / роллер-тренажёр)"
+    queries:
+      - "Hantelscheiben 20 kg"
+      - "Kurzhantel Set"
+      - "Kettlebell Set"
+      - "Rollentrainer Wahoo"
+    season: [10, 11, 12, 1, 2]
+    tags: [bulky, kleinanzeigen]
+    buy_ratio: 0.40
+    note: "Ноябрь-январь: сезон + новогодние обещания. Железо не портится, риск нулевой."
+
+  - key: naehmaschinen
+    label: "Швейные машины (Bernina / Pfaff / Husqvarna Viking / Juki)"
+    queries:
+      - "Bernina Nähmaschine"
+      - "Pfaff Nähmaschine"
+      - "Husqvarna Viking Nähmaschine"
+      - "Juki Overlock"
+    season: [9, 10, 11, 12, 1]
+    tags: [kleinanzeigen, hochwertig]
+    buy_ratio: 0.30
+    note: "Идеально под ломбарды и наследство: механика 80-х стоит дорого, конкурентов мало."
+
+  - key: modellbahn_sammler
+    label: "Модели и коллекционка (Märklin / Carrera / Warhammer / Lego)"
+    queries:
+      - "Märklin H0 Set"
+      - "Fleischmann Lokomotive"
+      - "Carrera Bahn"
+      - "Warhammer 40k Armee"
+      - "Lego Technic Set"
+    season: [10, 11, 12]
+    tags: [kleinanzeigen, vinted]
+    buy_ratio: 0.35
+    note: "Ноябрь-декабрь — пик. Märklin у ломбардов лежит недооценённым почти всегда."
+
+  - key: uhren_mittelklasse
+    label: "Часы среднего сегмента (Seiko / Certina / Tissot / Junghans)"
+    queries:
+      - "Seiko Automatik Herrenuhr"
+      - "Certina DS Uhr"
+      - "Tissot Automatik"
+      - "Junghans Uhr"
+    season: [11, 12]
+    tags: [vinted, hochwertig]
+    buy_ratio: 0.35
+    note: "Люкс (Rolex/Omega) исключён — там скам и экспертиза. Средний сегмент продаётся без вопросов."
+
+  - key: messtechnik
+    label: "Измерительная техника (Fluke / Leica Disto / тепловизоры)"
+    queries:
+      - "Fluke Multimeter"
+      - "Leica Disto"
+      - "Wärmebildkamera"
+      - "Bosch Laser Entfernungsmesser"
+    season: [9, 10, 11, 12]
+    tags: [kleinanzeigen, hochwertig]
+    buy_ratio: 0.35
+    note: "Осенью тепловизоры разбирают под поиск теплопотерь. Узкая, но маржинальная ниша."
+
+  - key: heizen_entfeuchten
+    label: "Обогрев и осушение (Luftentfeuchter / Infrarotheizung / Ölradiator)"
+    queries:
+      - "Luftentfeuchter Bautrockner"
+      - "Infrarotheizung"
+      - "Ölradiator Heizung"
+      - "Luftreiniger Philips"
+    season: [9, 10, 11, 12, 1]
+    tags: [kleinanzeigen]
+    buy_ratio: 0.40
+    note: "Чисто сезонный всплеск с первыми холодами и сыростью в квартирах."
+
+  - key: motorrad_ausruestung
+    label: "Мотоэкипировка (Schuberth / Held / Givi)"
+    queries:
+      - "Schuberth Helm"
+      - "Motorradjacke Held"
+      - "Givi Koffer Motorrad"
+    season: [3, 4, 5, 9]
+    tags: [vinted, kleinanzeigen]
+    buy_ratio: 0.35
+    note: "Осенью конец сезона — покупают дёшево, продавать лучше весной. Хранить до марта."
+
+  - key: porzellan_silber
+    label: "Фарфор и столовое серебро (Meissen / WMF / 800er Silber)"
+    queries:
+      - "Meissen Porzellan"
+      - "WMF Cromargan Besteck"
+      - "Silberbesteck 800"
+      - "Rosenthal Service"
+    season: [10, 11, 12]
+    tags: [kleinanzeigen]
+    buy_ratio: 0.35
+    note: "У ломбардов лежит по цене лома. Перед Рождеством уходит как подарочное."
+
+  - key: design_moebel
+    label: "Дизайн-мебель и лампы (Vitra / USM / Thonet / Artemide)"
+    queries:
+      - "Vitra Stuhl"
+      - "USM Haller"
+      - "Thonet Stuhl"
+      - "Artemide Lampe"
+    season: []
+    tags: [bulky, hochwertig]
+    buy_ratio: 0.30
+    note: "Крупногабарит, только самовывоз, зато маржа кратная. Проверять оригинальность."
+
+  - key: angeln_jagd
+    label: "Рыбалка (Shimano / Daiwa катушки и удилища)"
+    queries:
+      - "Shimano Angelrolle"
+      - "Daiwa Angelrolle"
+      - "Angelrute Set"
+    season: [3, 4, 5, 6, 9, 10]
+    tags: [kleinanzeigen]
+    buy_ratio: 0.35
+    note: "Узкая, но с фанатичной аудиторией, которая знает цены и берёт сразу."
